@@ -61,26 +61,26 @@ public class Solution {
         JTextField[][] fields = new JTextField[4][3];
         JTabbedPane tabby = new JTabbedPane();
         for (int i = 0; i < 4; i++) {
-            inputPanel.add(new JLabel("Ââåñòè ôîðìóëó êîìïîíåíòà:"));
+            inputPanel.add(new JLabel("Ввести формулу компонента:"));
             fields[i][0] = new JTextField();
             inputPanel.add(fields[i][0]);
 
-            inputPanel.add(new JLabel("Ìàñîâà ÷àñòêà êîìïîíåíòà íà êã:"));
+            inputPanel.add(new JLabel("Масова частка компонента на кг:"));
             fields[i][1] = new JTextField();
             inputPanel.add(fields[i][1]);
 
-            inputPanel.add(new JLabel("Òåïëîòà óòâîðåííÿ ó êÄæ/ìîëü:"));
+            inputPanel.add(new JLabel("Теплота утворення у кДж/моль:"));
             fields[i][2] = new JTextField();
             inputPanel.add(fields[i][2]);
         }
         tabPanel.add(inputPanel, BorderLayout.CENTER);
         tabPanel.add(calcButton, BorderLayout.SOUTH);
         calcButton.setPreferredSize(new Dimension(1000, 300));
-        tabby.add(tabPanel, "Ââåä³òü ñâî¿ äàí³");
+        tabby.add(tabPanel, "Введіть свої дані");
 
         resultPanel.add(resultArea, BorderLayout.NORTH);
         resultPanel.add(scrollPane, BorderLayout.SOUTH);
-        tabby.add("Ðåçóëüòàò", resultPanel);
+        tabby.add("Результат", resultPanel);
 
         frame.add(tabby);
 
@@ -103,7 +103,7 @@ public class Solution {
                     try {
                         substances[i].calculateMole();
                     } catch (ParseException ex) {
-                        sb.append("Âèíèêëà ïîìèëêà. Ïåðåâ³ðòå äàí³. Ìîæëèâî, Âè äåñü íàïèñàëè êîìó, çàì³ñòü êðàïêè.");
+                        sb.append("Виникла помилка. Перевірте дані. Можливо, Ви десь написали кому, замість крапки.");
                         throw new RuntimeException(ex);
                     }
                     sb.append(formula + ": ").append(substances[i].mole).append("\n");
@@ -131,7 +131,7 @@ public class Solution {
                                 .append("d: " + solution.calculateD(fuelOil, ammoniumNitrate, anyNitrate, water) +"\n")
                                         .append("e: " + solution.calculateE(anyNitrate) +"\n");
 
-                sb.append("Îêñèãåííèé áàëàíñ: " + solution.calculateOxygenBalance() +"%\n");
+                sb.append("Оксигенний баланс: " + solution.calculateOxygenBalance() +"%\n");
                 sb.append(solution.calculateProductsOfReaction());
                 sb.append(solution.calculateHeatOfDetonation(ammoniumNitrate, water, fuelOil, anyNitrate));
                 resultArea.setText(sb.toString());
@@ -331,8 +331,8 @@ public class Solution {
         }
         volumeOfProducts = moleOfProducts*22.4;
         sb.append(n1+"CO2 + "+n2+"H2O + "+n3+"N2 + "+n7+"CaO/Al2O3/Na2O + "+n4+"CO + "+n9+"C + "+ Math.round(n8) +"O2 + "+n5 +"H2"+"\n");
-        sb.append("Ìîë³ ïðîäóêò³â ðåàö³¿: "+moleOfProducts + "\n");
-        sb.append("Îá'ºì ãàç³â: "+volumeOfProducts + "\n");
+        sb.append("Молі продуктів реації: "+moleOfProducts + "\n");
+        sb.append("Об'єм газів: "+volumeOfProducts + "\n");
         return sb;
     }
     public StringBuilder calculateHeatOfDetonation(AmmoniumNitrate aN, Water h2O, FuelOil fO, AnyNitrate cN){
@@ -343,9 +343,10 @@ public class Solution {
             QProduct+= isCalcium ? n7*enthalpyOfCaO : (isAluminium ? n7*enthalpyOfAl2O3 :(isNatrium ? n7*enthalpyOfNa2O: 0));
         }
         Q = QProduct-QInput;
-        sb.append("Òåïëîòà âõ³äíèõ ïðîäóêò³â: "+ QInput + "." + " Òåïëîòà ïðîäóêò³â âèáóõó: " + QProduct + "\n");
-        sb.append("Òåïëîòà âèáóõó â êÄæ/êã: "+Q);
+        sb.append("Теплота вхідних продуктів: "+ QInput + "." + " Теплота продуктів вибуху: " + QProduct + "\n");
+        sb.append("Теплота вибуху в кДж/кг: "+Q);
         return sb;
     }
 }
+
 
