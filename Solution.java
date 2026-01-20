@@ -51,7 +51,7 @@ public class Solution {
         JPanel inputPanel = new JPanel(new GridLayout(4, 3, 10, 10));
         JPanel resultPanel = new JPanel(new BorderLayout());
 
-        JButton calcButton = new JButton("Порахувати");
+        JButton calcButton = new JButton("РџРѕСЂР°С…СѓРІР°С‚Рё");
         JTextArea resultArea = new JTextArea();
         resultArea.setEditable(false);
         resultArea.setFont(new Font("Monospaced", Font.PLAIN, 20));
@@ -61,26 +61,26 @@ public class Solution {
         JTextField[][] fields = new JTextField[4][3];
         JTabbedPane tabby = new JTabbedPane();
         for (int i = 0; i < 4; i++) {
-            inputPanel.add(new JLabel("Ввести формулу компонента:"));
+            inputPanel.add(new JLabel("Г‚ГўГҐГ±ГІГЁ ГґГ®Г°Г¬ГіГ«Гі ГЄГ®Г¬ГЇГ®Г­ГҐГ­ГІГ :"));
             fields[i][0] = new JTextField();
             inputPanel.add(fields[i][0]);
 
-            inputPanel.add(new JLabel("Масова частка компонента на кг:"));
+            inputPanel.add(new JLabel("ГЊГ Г±Г®ГўГ  Г·Г Г±ГІГЄГ  ГЄГ®Г¬ГЇГ®Г­ГҐГ­ГІГ  Г­Г  ГЄГЈ:"));
             fields[i][1] = new JTextField();
             inputPanel.add(fields[i][1]);
 
-            inputPanel.add(new JLabel("Теплота утворення у кДж/моль:"));
+            inputPanel.add(new JLabel("Г’ГҐГЇГ«Г®ГІГ  ГіГІГўГ®Г°ГҐГ­Г­Гї Гі ГЄГ„Г¦/Г¬Г®Г«Гј:"));
             fields[i][2] = new JTextField();
             inputPanel.add(fields[i][2]);
         }
         tabPanel.add(inputPanel, BorderLayout.CENTER);
         tabPanel.add(calcButton, BorderLayout.SOUTH);
         calcButton.setPreferredSize(new Dimension(1000, 300));
-        tabby.add(tabPanel, "Введіть свої дані");
+        tabby.add(tabPanel, "Г‚ГўГҐГ¤ВіГІГј Г±ГўГ®Вї Г¤Г Г­Ві");
 
         resultPanel.add(resultArea, BorderLayout.NORTH);
         resultPanel.add(scrollPane, BorderLayout.SOUTH);
-        tabby.add("Результат", resultPanel);
+        tabby.add("ГђГҐГ§ГіГ«ГјГІГ ГІ", resultPanel);
 
         frame.add(tabby);
 
@@ -103,7 +103,7 @@ public class Solution {
                     try {
                         substances[i].calculateMole();
                     } catch (ParseException ex) {
-                        sb.append("Виникла помилка. Перевірте дані. Можливо, Ви десь написали кому, замість крапки.");
+                        sb.append("Г‚ГЁГ­ГЁГЄГ«Г  ГЇГ®Г¬ГЁГ«ГЄГ . ГЏГҐГ°ГҐГўВіГ°ГІГҐ Г¤Г Г­Ві. ГЊГ®Г¦Г«ГЁГўГ®, Г‚ГЁ Г¤ГҐГ±Гј Г­Г ГЇГЁГ±Г Г«ГЁ ГЄГ®Г¬Гі, Г§Г Г¬ВіГ±ГІГј ГЄГ°Г ГЇГЄГЁ.");
                         throw new RuntimeException(ex);
                     }
                     sb.append(formula + ": ").append(substances[i].mole).append("\n");
@@ -131,7 +131,7 @@ public class Solution {
                                 .append("d: " + solution.calculateD(fuelOil, ammoniumNitrate, anyNitrate, water) +"\n")
                                         .append("e: " + solution.calculateE(anyNitrate) +"\n");
 
-                sb.append("Оксигенний баланс: " + solution.calculateOxygenBalance() +"%\n");
+                sb.append("ГЋГЄГ±ГЁГЈГҐГ­Г­ГЁГ© ГЎГ Г«Г Г­Г±: " + solution.calculateOxygenBalance() +"%\n");
                 sb.append(solution.calculateProductsOfReaction());
                 sb.append(solution.calculateHeatOfDetonation(ammoniumNitrate, water, fuelOil, anyNitrate));
                 resultArea.setText(sb.toString());
@@ -331,8 +331,8 @@ public class Solution {
         }
         volumeOfProducts = moleOfProducts*22.4;
         sb.append(n1+"CO2 + "+n2+"H2O + "+n3+"N2 + "+n7+"CaO/Al2O3/Na2O + "+n4+"CO + "+n9+"C + "+ Math.round(n8) +"O2 + "+n5 +"H2"+"\n");
-        sb.append("Молі продуктів реації: "+moleOfProducts + "\n");
-        sb.append("Об'єм газів: "+volumeOfProducts + "\n");
+        sb.append("ГЊГ®Г«Ві ГЇГ°Г®Г¤ГіГЄГІВіГў Г°ГҐГ Г¶ВіВї: "+moleOfProducts + "\n");
+        sb.append("ГЋГЎ'ВєГ¬ ГЈГ Г§ВіГў: "+volumeOfProducts + "\n");
         return sb;
     }
     public StringBuilder calculateHeatOfDetonation(AmmoniumNitrate aN, Water h2O, FuelOil fO, AnyNitrate cN){
@@ -343,8 +343,9 @@ public class Solution {
             QProduct+= isCalcium ? n7*enthalpyOfCaO : (isAluminium ? n7*enthalpyOfAl2O3 :(isNatrium ? n7*enthalpyOfNa2O: 0));
         }
         Q = QProduct-QInput;
-        sb.append("Теплота вхідних продуктів: "+ QInput + "." + " Теплота продуктів вибуху: " + QProduct + "\n");
-        sb.append("Теплота вибуху в кДж/кг: "+Q);
+        sb.append("Г’ГҐГЇГ«Г®ГІГ  ГўГµВіГ¤Г­ГЁГµ ГЇГ°Г®Г¤ГіГЄГІВіГў: "+ QInput + "." + " Г’ГҐГЇГ«Г®ГІГ  ГЇГ°Г®Г¤ГіГЄГІВіГў ГўГЁГЎГіГµГі: " + QProduct + "\n");
+        sb.append("Г’ГҐГЇГ«Г®ГІГ  ГўГЁГЎГіГµГі Гў ГЄГ„Г¦/ГЄГЈ: "+Q);
         return sb;
     }
 }
+
